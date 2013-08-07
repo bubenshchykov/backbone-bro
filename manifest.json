@@ -1,0 +1,24 @@
+{
+	"name": "Backbone Bro",
+ 	"version": "0.0.1",
+	"manifest_version": 2,
+	"content_scripts": [
+		{
+			"matches": ["*://*/*"],
+			"js": ["content.js"],
+			"css": ["bbbro.css"],
+			"run_at":"document_start"
+		}
+	],
+	"permissions": [
+		"tabs", "*://*/*"
+	],
+	"web_accessible_resources": ["bbbro.js"],
+	"devtools_page": "tools.html",
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_title": "BBBro - click to toggle"
+	},
+	"background": { "scripts": ["background.js"] }
+}
+

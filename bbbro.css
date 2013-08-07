@@ -1,0 +1,11 @@
+.bbbro-on .bbbro-view {
+	-moz-box-shadow: 0 0 5px blue !important;
+	-webkit-box-shadow: 0 0 5px blue !important;
+	box-shadow: 0 0 5px blue !important;
+}
+
+.bbbro-on .bbbro-view:hover {
+	-moz-box-shadow: 0 0 5px green !important;
+	-webkit-box-shadow: 0 0 5px green !important;
+	box-shadow: 0 0 5px green !important;
+}
