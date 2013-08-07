@@ -1,13 +1,13 @@
 backbone-bro
 ============
 
-Chrome extension for a backbone developers
+Chrome extension for backbone developers
 
 Usage
 =====
 Bro quickly links you between the markup you see and the backbone view object what sits behind - without being forced to find a corresponding script and debug it. Click on any html element, and see its view in the sidebar, model of the view and all the properties.
 
-Also for convenience, when u expect some html u can use "_bbbro_view" variable from console what will point to the current view with all the methods available.
+Also for convenience, when u inspect some html u can use "_bbbro_view" variable from console what will point to the current view with all the methods available.
 
 
 Features
