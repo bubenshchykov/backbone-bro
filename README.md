@@ -28,4 +28,6 @@ Todo
 - when highlighing a view show its constructor - could be used as project documentation
 - move view inspection from sidebar to a separate tab (like network, scripts etc)
 - create "Backbone events" tab what will track all the event hell
+- maybe let the plugin start detecting the backbone only if page had ?bbbro path - don't do any js for other pages
+- All the suggestions and pull requests are More Than Welcome! :)
 
