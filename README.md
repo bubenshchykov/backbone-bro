@@ -16,6 +16,8 @@ Features
 - backbone views highlighter
 - backbone views sidebar inspector
 
+![ScreenShot](https://raw.github.com/bubenshchykov/backbone-bro/master/screenshot.png)
+
 Installation
 ===========
 Chrome -> Settings -> Extensions -> mark "developer mode" checkbox -> Load unpacked extension -> select a dir with BBBro
