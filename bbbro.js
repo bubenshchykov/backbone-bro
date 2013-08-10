@@ -1,12 +1,11 @@
 (function(){
 
-	/* BBBro setup */
+	/* BBBro hooks */
 
-	onBackboneReady(brotifyBackbone);
+	detectBackbone(brotifyBackbone);
 
 	function brotifyBackbone(backbone) {
-		console.log('BBBRo: backbone detected', backbone.VERSION);
-		removeWatchers();
+		console.log('BBBRo-info: backbone detected', backbone.VERSION);
 		var original = backbone.View.prototype._ensureElement;
 		backbone.View.prototype._ensureElement = function() {
 			var res = original.apply(this, arguments);
@@ -16,38 +15,53 @@
 		}
 	}
 
-	/* BBBro helpers */
+	/* Backbone detection */
 
-	function onBackboneReady(callback) {
+	function detectBackbone(callback) {
+
+		if (isBackboneReady(window.Backbone)) {
+			console.log('BBBRo-warn: the page has been started before we made a hook, you might want to refresh');
+			return callback(window.Backbone);
+		}
+
 		initWatchers();
-		var backboneDetected = false;
-		window.watch('Backbone', function(name, oldval, backbone){
-			if (!backbone) {
-				return backbone;
-			}
+		var detected = false;
 
-			if (typeof backbone.View === 'function') {
-				backboneDetected = true;
-				callback(backbone);
-			} else {
+		window.watch('Backbone', function(name, oldval, backbone){
+			if (!detect(backbone)) {
 				backbone.watch('History', function(name, oldval, history) {
-					if(typeof history === 'function'){
-						backboneDetected = true;
-						callback(backbone);
-					}
+					detect(backbone);
 					return history;
 				});
 			}
-
 			return backbone;
 		});
+
+		function detect(backbone) {
+			if (isBackboneReady(backbone)) {
+				detected = true;
+				callback(backbone);
+				removeWatchers();
+				return true;
+			}
+		}
+
 		setTimeout(function(){
-			if(!backboneDetected) {
-				console.log('BBBRo: no backbone detected');
+			if(!detected) {
+				console.log('BBBRo-info: no backbone detected in 10 sec');
 				removeWatchers();
 			}
 		}, 10 * 1000);
 	}
+
+	function isBackboneReady(backbone) {
+		return backbone &&
+			backbone.View &&
+			backbone.View.prototype &&
+			backbone.View.prototype._ensureElement;
+	}
+
+	/* Object watchers */
 
 	function initWatchers() {
 		if (!Object.prototype.watch) {
@@ -95,8 +109,8 @@
 	}
 
 	function removeWatchers() {
-		window.unwatch('Backbone');
-		Backbone && Backbone.unwatch('History');
+		window.unwatch && window.unwatch('Backbone');
+		Backbone && Backbone.unwatch && Backbone.unwatch('History');
 	}
 
 })();
